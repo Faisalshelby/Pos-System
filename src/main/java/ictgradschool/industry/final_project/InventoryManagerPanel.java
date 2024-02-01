@@ -1,6 +1,7 @@
 package ictgradschool.industry.final_project;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     JButton modifyProduct;
     JButton viewProduct;
     JButton removeProduct;
+
+    JButton exitButton;
     JLabel productIdLabel;
     JLabel productNameLabel;
     JLabel productDescriptionLabel;
@@ -45,6 +48,8 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         modifyProduct = new JButton("Modify Product");
         viewProduct = new JButton("View Product");
         removeProduct = new JButton("Remove Product");
+        exitButton = new JButton("Exit Inventory");
+
 
         //adding elements to Panel
         this.add(productIdLabel);this.add(productIdField);
@@ -58,38 +63,57 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         this.add(modifyProduct);
         this.add(viewProduct);
         this.add(removeProduct);
+        this.add(exitButton);
 
         createProduct.addActionListener(this);
         modifyProduct.addActionListener(this);
         viewProduct.addActionListener(this);
         removeProduct.addActionListener(this);
-
+        exitButton.addActionListener(this);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createProduct){
-          createProducts();
+          productsList.add(createProducts());
         } else if (e.getSource() == modifyProduct) {
-            productsList.remove(productsList.get(Integer.parseInt(productIdField.getText())));
-            Products product = new Products(Integer.parseInt(productIdField.getText()
-            ),productNameField.getText(),
-                    productDescriptionField.getText(),
-                    Double.parseDouble(productPriceField.getText()),
-                    Integer.parseInt(productIdField.getText()));
-            productsList.add(Integer.parseInt(productIdField.getText()),product);
+            viewProduct();
+            Products p = createProducts();
+            for (Products products: productsList){
+                if (products.equals(p)){
+                    System.out.println("No changes Made");
+                }
+                else {
+                    products =p;
+                }
+            }
+
             } else if (e.getSource() == viewProduct) {
                 try {
                     viewProduct();
                 }catch (Exception exception){
                     System.out.println("Product not found");
                 }
+            } else if (e.getSource() == removeProduct) {
+            for (int i = 0; i < productsList.size(); i++) {
+                if (productsList.get(i).id == Integer.parseInt(productIdField.getText())){
+                    productsList.remove(productsList.get(i));
+                    System.out.println("Product Removed");
+                }
+
+                else {
+                    System.out.println("Product Does Not Exist");
+                }
             }
+        } else if (e.getSource() == exitButton) {
+            JComponent c = (JComponent) e.getSource();
+            Window win = SwingUtilities.getWindowAncestor(c);
+            win.dispose();
+        }
+
+    }
 
 
-            }
-
-
-        public void createProducts(){
+        public Products createProducts(){
 
                 Products product = new Products(
                 Integer.parseInt(productIdField.getText()
@@ -97,9 +121,9 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
                 productDescriptionField.getText(),
                 Double.parseDouble(productPriceField.getText()),
                 Integer.parseInt(productIdField.getText()));
-                productsList.add(product);
+//                productsList.add(product);
 
-    }
+              return product;  }
     public void viewProduct(){
         for (Products p : productsList){
             if(p.getId() == Integer.parseInt(productIdField.getText())){
