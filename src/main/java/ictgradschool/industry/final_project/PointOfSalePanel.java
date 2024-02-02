@@ -14,7 +14,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
     JButton exit;
     List<Products> productsList = new ArrayList<>();
     public PointOfSalePanel(){
-        productsList.add(new Products(1,"Qwerty","Sample",3.99,87));
+        productsList.add(new Products("PR0DUCT","Qwerty","Sample",3.99,87));
         setBackground(Color.WHITE);
 
         for (int i = 0; i < productsList.size(); i++) {

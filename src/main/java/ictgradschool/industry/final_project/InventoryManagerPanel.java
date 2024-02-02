@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryManagerPanel extends JPanel implements ActionListener{
-
+//TODO get the products from inventory, create a JTable and display the items, each item should be
     JButton createProduct;
     JButton modifyProduct;
     JButton viewProduct;
@@ -95,7 +95,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
                 }
             } else if (e.getSource() == removeProduct) {
             for (int i = 0; i < productsList.size(); i++) {
-                if (productsList.get(i).id == Integer.parseInt(productIdField.getText())){
+                if (productsList.get(i).id.equals(productIdField.getText())){
                     productsList.remove(productsList.get(i));
                     System.out.println("Product Removed");
                 }
@@ -116,17 +116,17 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         public Products createProducts(){
 
                 Products product = new Products(
-                Integer.parseInt(productIdField.getText()
-                ),productNameField.getText(),
+                productIdField.getText()
+                ,productNameField.getText(),
                 productDescriptionField.getText(),
                 Double.parseDouble(productPriceField.getText()),
-                Integer.parseInt(productIdField.getText()));
+                Integer.parseInt(productQuantityField.getText()));
 //                productsList.add(product);
 
               return product;  }
     public void viewProduct(){
         for (Products p : productsList){
-            if(p.getId() == Integer.parseInt(productIdField.getText())){
+            if(p.getId().equals(productIdField.getText())){
                 productIdField.setText(String.valueOf(p.getId()));
                 productNameField.setText(p.getName());
                 productDescriptionField.setText(p.getDescription());

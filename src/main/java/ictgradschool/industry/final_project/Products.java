@@ -1,19 +1,18 @@
 package ictgradschool.industry.final_project;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Products {
 
-    public int id;
+    public String id;
     public String name;
     public String description;
     public double price;
     public int quantity;
 
-    public Products(int id,String name,String description,double price,int quantity){
+    public Products(String id,String name,String description,double price,int quantity){
 
-        this.id = id;
+        this.id = generateAlphaNumeric();
         this.name = name;
         this.description = description;
         this.price = price;
@@ -21,7 +20,7 @@ public class Products {
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -41,7 +40,7 @@ public class Products {
         return quantity;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,6 +59,19 @@ public class Products {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public String generateAlphaNumeric() {
+        char[] alphanumeric = "0123456789QWERTYUIOPASDFGHJKLMNBVCXZ".toCharArray();
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            int index = (int) (Math.random() * alphanumeric.length);
+            builder.append(alphanumeric[index]);
+
+        }
+        return builder.toString();
+    }
+
 
     @Override
     public boolean equals(Object o) {
