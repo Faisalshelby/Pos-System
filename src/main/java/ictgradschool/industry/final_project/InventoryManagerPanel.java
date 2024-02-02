@@ -26,7 +26,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     JTextField productPriceField;
     JTextField productQuantityField;
 
-    List<Products> productsList = new ArrayList<>();
+    List<Products> productsList;
     public InventoryManagerPanel(){
 
         //Labels
@@ -48,7 +48,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         modifyProduct = new JButton("Modify Product");
         viewProduct = new JButton("View Product");
         removeProduct = new JButton("Remove Product");
-        exitButton = new JButton("Exit Inventory");
+        exitButton = new JButton("Exit InventoryTableModelAdaptor");
 
 
         //adding elements to Panel
