@@ -32,7 +32,8 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         JTable table = new JTable();
         FileReadWrite readWrite = new FileReadWrite();
         JScrollPane tablePane = new JScrollPane(table);
-        table.setModel(new InventoryTableModelAdaptor(readWrite.fileRead("./src/main/resources/hello.csv")));
+        productsList = readWrite.fileRead("./src/main/resources/hello.csv");
+        table.setModel(new InventoryTableModelAdaptor(productsList));
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(150);
