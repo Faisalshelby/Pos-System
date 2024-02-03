@@ -29,6 +29,16 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     List<Products> productsList;
     public InventoryManagerPanel(){
 
+        JTable table = new JTable();
+        FileReadWrite readWrite = new FileReadWrite();
+        JScrollPane tablePane = new JScrollPane(table);
+        table.setModel(new InventoryTableModelAdaptor(readWrite.fileRead("./src/main/resources/hello.csv")));
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+
+        this.add(table);
+        this.add(tablePane,BorderLayout.CENTER);
         //Labels
         productIdLabel = new JLabel("Product Id : ");
         productNameLabel = new JLabel("Product Name : ");
@@ -48,7 +58,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         modifyProduct = new JButton("Modify Product");
         viewProduct = new JButton("View Product");
         removeProduct = new JButton("Remove Product");
-        exitButton = new JButton("Exit InventoryTableModelAdaptor");
+        exitButton = new JButton("Exit Inventory");
 
 
         //adding elements to Panel

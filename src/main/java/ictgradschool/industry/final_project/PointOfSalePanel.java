@@ -17,12 +17,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         productsList.add(new Products("PR0DUCT","Qwerty","Sample",3.99,87));
         setBackground(Color.WHITE);
 
-        for (int i = 0; i < productsList.size(); i++) {
 
-            this.add(new JLabel(productsList.get(i).name));
-            //TODO add to cart
-            this.add(new JButton("Add to Cart"));
-        }
 
         this.checkout = new JButton("CheckOut");
         this.exit= new JButton("Exit Point of Sale");

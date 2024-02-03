@@ -1,5 +1,7 @@
 package ictgradschool.industry.final_project;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Products {
@@ -71,6 +73,7 @@ public class Products {
         }
         return builder.toString();
     }
+
 
 
     @Override

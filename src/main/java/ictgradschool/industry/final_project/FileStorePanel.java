@@ -17,7 +17,7 @@ public class FileStorePanel extends JPanel implements ActionListener {
 
         setBackground(Color.WHITE);
         this.closeFileStore = new JButton("Exit");
-        this.openInventory = new JButton("Open InventoryTableModelAdaptor Manager");
+        this.openInventory = new JButton("Open Inventory Manager");
         this.openPointOfSale = new JButton("Open Point Of Sale");
 
 
@@ -38,7 +38,7 @@ public class FileStorePanel extends JPanel implements ActionListener {
             Window win = SwingUtilities.getWindowAncestor(c);
             win.dispose();
         } else if (e.getSource() == openInventory) {
-             InventoryManagerFrame frame =new InventoryManagerFrame("InventoryTableModelAdaptor Manager",100,100,400,600);
+             InventoryManagerFrame frame =new InventoryManagerFrame("Inventory Manager",100,100,400,600);
             frame.setVisible(true);
             //TODO Add functionalities related to the selected file
 

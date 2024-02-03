@@ -24,7 +24,7 @@ List<Products> productsList = new ArrayList<>();
             productsList.add(new Products(product[0], product[1],
                     product[2],Double.parseDouble(product[3]),
                     Integer.parseInt(product[4])));
-            System.out.println(product[0] + ", Name=" + product[1] + ", Description=" + product[2] + ", Price = " + product[3] + ", Quantity " + product[4]);
+           // System.out.println(product[0] + ", Name=" + product[1] + ", Description=" + product[2] + ", Price = " + product[3] + ", Quantity " + product[4]);
         }
 
     } catch (FileNotFoundException fne) {
