@@ -14,7 +14,7 @@ public class Products {
 
     public Products(String id,String name,String description,double price,int quantity){
 
-        this.id = generateAlphaNumeric();
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;

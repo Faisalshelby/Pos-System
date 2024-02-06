@@ -1,11 +1,9 @@
 package ictgradschool.industry.final_project;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
 public class FileReadWrite {
 
 //TODO read the CSV file selected by the user,
@@ -24,7 +22,7 @@ List<Products> productsList = new ArrayList<>();
             productsList.add(new Products(product[0], product[1],
                     product[2],Double.parseDouble(product[3]),
                     Integer.parseInt(product[4])));
-           // System.out.println(product[0] + ", Name=" + product[1] + ", Description=" + product[2] + ", Price = " + product[3] + ", Quantity " + product[4]);
+            System.out.println(product[0] + ", Name=" + product[1] + ", Description=" + product[2] + ", Price = " + product[3] + ", Quantity " + product[4]);
         }
 
     } catch (FileNotFoundException fne) {
@@ -35,5 +33,26 @@ List<Products> productsList = new ArrayList<>();
     return productsList;
 }
 
+public void fileWrite(String filename,List<Products> productsList){
+    List<Products> products = productsList;
+    char delimeter = ',';
+    String dir = "./src/main/resources/";
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(dir+filename))){
+        writer.write("PRODUCT ID" +delimeter+ "PRODUCT NAME"+delimeter+"PRODUCT DESCRIPTION"+delimeter+"PRODUCT PRICE"+delimeter+"PRODUCT QUANTITY");
+        writer.newLine();
+        if (products!=null){
+        for (int i = 0; i < products.size(); i++) {
+            writer.write(products.get(i).getId() +delimeter+
+                    products.get(i).getName()+delimeter+
+                    products.get(i).getDescription()+delimeter+
+                    products.get(i).getPrice()+delimeter+
+                    products.get(i).getQuantity());
+            writer.newLine();
+        }
+        }
+    }catch (IOException e){
+        System.out.println("INCORRECT FILE");
+    }
+}
 
 }

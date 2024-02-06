@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class FileStorePanel extends JPanel implements ActionListener {
 
@@ -12,9 +13,9 @@ public class FileStorePanel extends JPanel implements ActionListener {
     JButton openInventory;
 
     JButton openPointOfSale;
-
-    public FileStorePanel(){
-
+    List<Products> productsList;
+    public FileStorePanel(List<Products> productsList){
+        this.productsList = productsList;
         setBackground(Color.WHITE);
         this.closeFileStore = new JButton("Exit");
         this.openInventory = new JButton("Open Inventory Manager");
@@ -38,12 +39,13 @@ public class FileStorePanel extends JPanel implements ActionListener {
             Window win = SwingUtilities.getWindowAncestor(c);
             win.dispose();
         } else if (e.getSource() == openInventory) {
-             InventoryManagerFrame frame =new InventoryManagerFrame("Inventory Manager",100,100,400,600);
+            System.out.println(this.productsList.get(0).id);
+             InventoryManagerFrame frame =new InventoryManagerFrame("Inventory Manager",100,100,400,600,this.productsList);
             frame.setVisible(true);
             //TODO Add functionalities related to the selected file
 
         } else if (e.getSource() == openPointOfSale) {
-            PointOfSaleFrame frame = new PointOfSaleFrame("Point Of Sale",100,100,400,600);
+            PointOfSaleFrame frame = new PointOfSaleFrame("Point Of Sale",100,100,400,600,this.productsList);
             frame.setVisible(true);
         }
     }

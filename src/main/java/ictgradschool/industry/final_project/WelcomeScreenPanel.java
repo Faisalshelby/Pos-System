@@ -43,15 +43,15 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
     try {
         String filename = fileSelector();
         FileReadWrite readWrite = new FileReadWrite();
-        productsList = readWrite.fileRead(filename);
+        this.productsList = readWrite.fileRead(filename);
 
     }catch (IOException ioe){
         System.out.println("Incorrect File");
     }
             //TODO for file not null make a separate panel or appropriate display with three buttons
 
-            if (productsList != null) {
-                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,400,600);
+            if (this.productsList != null) {
+                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,400,600,this.productsList);
                  frame.setVisible(true);
             }
         } else if (e.getSource() == createFileStore) {

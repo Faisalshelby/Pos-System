@@ -5,9 +5,6 @@ import java.util.List;
 
 public class InventoryTableModelAdaptor extends AbstractTableModel {
 
-//todo get the values of products, and add check, for each product
-// Empty product list should not be an issue,
-// get the changed product list and call the file write to save
     List<Products> productsList;
     public InventoryTableModelAdaptor(List<Products> productsList){
         this.productsList = productsList;

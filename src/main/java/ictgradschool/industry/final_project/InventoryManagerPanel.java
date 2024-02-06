@@ -27,19 +27,15 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     JTextField productQuantityField;
 
     List<Products> productsList;
-    public InventoryManagerPanel(){
+    public InventoryManagerPanel(List<Products> productsList){
+        this.productsList = productsList;
 
+        //table model
         JTable table = new JTable();
-        FileReadWrite readWrite = new FileReadWrite();
-        JScrollPane tablePane = new JScrollPane(table);
-        productsList = readWrite.fileRead("./src/main/resources/hello.csv");
         table.setModel(new InventoryTableModelAdaptor(productsList));
-        table.getColumnModel().getColumn(0).setPreferredWidth(100);
-        table.getColumnModel().getColumn(1).setPreferredWidth(100);
-        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+        JScrollPane tablePane = new JScrollPane(table);
 
-        this.add(table);
-        this.add(tablePane,BorderLayout.CENTER);
+
         //Labels
         productIdLabel = new JLabel("Product Id : ");
         productNameLabel = new JLabel("Product Name : ");
@@ -63,6 +59,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
 
 
         //adding elements to Panel
+        this.add(tablePane);
         this.add(productIdLabel);this.add(productIdField);
         this.add(productNameLabel);this.add(productNameField);
         this.add(productDescriptionLabel);this.add(productDescriptionField);
@@ -86,10 +83,13 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createProduct){
           productsList.add(createProducts());
+          repaint();
         } else if (e.getSource() == modifyProduct) {
-            viewProduct();
+            if (productIdField.getText()!=null){
+                viewProduct();
+            }
             Products p = createProducts();
-            for (Products products: productsList){
+            for (Products products: this.productsList){
                 if (products.equals(p)){
                     System.out.println("No changes Made");
                 }
@@ -99,18 +99,14 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
             }
 
             } else if (e.getSource() == viewProduct) {
-                try {
                     viewProduct();
-                }catch (Exception exception){
-                    System.out.println("Product not found");
-                }
+
             } else if (e.getSource() == removeProduct) {
             for (int i = 0; i < productsList.size(); i++) {
                 if (productsList.get(i).id.equals(productIdField.getText())){
                     productsList.remove(productsList.get(i));
                     System.out.println("Product Removed");
                 }
-
                 else {
                     System.out.println("Product Does Not Exist");
                 }
@@ -125,20 +121,23 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
 
 
         public Products createProducts(){
-
+                if (productIdField.getText().length() !=10){
+                    System.out.println("INVALID ID");
+                }
                 Products product = new Products(
                 productIdField.getText()
                 ,productNameField.getText(),
                 productDescriptionField.getText(),
                 Double.parseDouble(productPriceField.getText()),
                 Integer.parseInt(productQuantityField.getText()));
-//                productsList.add(product);
+               //this.productsList.add(product);
 
-              return product;  }
+              return product;
+    }
     public void viewProduct(){
-        for (Products p : productsList){
+        for (Products p : this.productsList){
             if(p.getId().equals(productIdField.getText())){
-                productIdField.setText(String.valueOf(p.getId()));
+                productIdField.setText(p.getId());
                 productNameField.setText(p.getName());
                 productDescriptionField.setText(p.getDescription());
                 productPriceField.setText(String.valueOf(p.getPrice()));
