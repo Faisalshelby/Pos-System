@@ -68,11 +68,13 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
             win.dispose();
         } else if (e.getSource() == checkout) {
             //TODO Receipt
-            FileReadWrite write = new FileReadWrite();
-            write.fileWrite("checkout.csv",this.productsList);
-            JComponent c = (JComponent) e.getSource();
-            Window win = SwingUtilities.getWindowAncestor(c);
-            win.dispose();
+//            FileReadWrite write = new FileReadWrite();
+//            write.fileWrite("checkout.csv",this.productsList);
+//            JComponent c = (JComponent) e.getSource();
+//            Window win = SwingUtilities.getWindowAncestor(c);
+//            win.dispose();
+            RecieptFrame frame = new RecieptFrame("Receipt",100,100,400,600,this.checkoutList);
+            frame.setVisible(true);
         }
 
     }

@@ -1,7 +1,10 @@
 package ictgradschool.industry.final_project;
 
 import javax.swing.*;
-
+//TODO CREATE filestore
+//TODO Reciept
+//TODO Reciept model adapter
+//todo save file from reciept
 public class ProjectUI {
     public static void main(String[] args) {
         // TODO: Your code here
