@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.nio.file.FileSystemException;
+import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
@@ -45,18 +47,30 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
         FileReadWrite readWrite = new FileReadWrite();
         this.productsList = readWrite.fileRead(filename);
 
-    }catch (IOException ioe){
+         }catch (IOException ioe){
         System.out.println("Incorrect File");
-    }
+        }
             //TODO for file not null make a separate panel or appropriate display with three buttons
 
             if (this.productsList != null) {
-                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,400,600,this.productsList);
+                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList);
                  frame.setVisible(true);
             }
         } else if (e.getSource() == createFileStore) {
 
             //TODO Add functionality
+            try {
+                String filename = fileSelector();
+                File f = new File(filename);
+                if (f.exists()) {
+                    throw new FileSystemException("File Already Exists");
+                }
+                this.productsList = new ArrayList<>();
+                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList);
+                frame.setVisible(true);
+            }catch (IOException exc){
+                System.out.println("Incorrect File");
+            }
 
         } else if (e.getSource() == exit) {
             JComponent c = (JComponent) e.getSource();
@@ -81,8 +95,10 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
              s = String.valueOf(fileChooser.getSelectedFile());
             return s;
         }
-
-        return null;
+        else {
+            System.out.println("NO FILE SELECTED");
+            return "default.csv";
+        }
 
     }
 

@@ -1,5 +1,6 @@
 package ictgradschool.industry.final_project;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -22,12 +23,12 @@ public class PointOfSaleTableModelAdapter extends AbstractTableModel {
 @Override
 public String getColumnName(int column){
    return switch (column){
-     case 0 -> "ID";
-     case 1->"Name";
-       case 2->"Description";
-       case 3->"Price";
-       case 4->"Quantity";
-       default -> "NOTHING";
+        case 0 -> "ID";
+        case 1->"Name";
+        case 2->"Description";
+        case 3->"Price";
+        case 4->"In Stock";
+        default -> "NOTHING";
    };
 }
     @Override
@@ -41,5 +42,14 @@ public String getColumnName(int column){
             case 4->p.getQuantity();
             default -> "0000";
         };
+    }
+
+    public void updateQuantityRemove(Products p){
+        p.setQuantity(p.getQuantity() - 1);
+        fireTableDataChanged();
+    }
+    @Override
+    public void fireTableDataChanged() {
+        super.fireTableDataChanged();
     }
 }

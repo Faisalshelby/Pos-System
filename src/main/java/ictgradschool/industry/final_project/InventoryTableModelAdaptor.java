@@ -23,9 +23,10 @@ public class InventoryTableModelAdaptor extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         return switch (column){
-            case 0 -> "Product Name";
-            case 1 -> "Quantity";
-            case 2 -> "Price";
+            case 0 -> "Product ID";
+            case 1 -> "Product Name";
+            case 2 -> "Quantity";
+            case 3 -> "Price";
             default -> "NO COLUMN";
         };
     }
@@ -33,13 +34,22 @@ public class InventoryTableModelAdaptor extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Products p = this.productsList.get(rowIndex);
         return switch (columnIndex){
-            case 0 -> p.getName();
-            case 1 -> p.getQuantity();
-            case 2 -> p.getPrice();
+            case 0 -> p.getId();
+            case 1 -> p.getName();
+            case 2 -> p.getQuantity();
+            case 3 -> p.getPrice();
             default -> "No Product";
         };
     }
 
+    public void addProduct(Products p) {
+        productsList.add(p);
+        fireTableDataChanged();
+    }
+    public void removeProduct(Products p){
+        productsList.remove(p);
+        fireTableDataChanged();
+    }
 
 
     @Override

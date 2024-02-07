@@ -39,13 +39,13 @@ public class FileStorePanel extends JPanel implements ActionListener {
             Window win = SwingUtilities.getWindowAncestor(c);
             win.dispose();
         } else if (e.getSource() == openInventory) {
-            System.out.println(this.productsList.get(0).id);
-             InventoryManagerFrame frame =new InventoryManagerFrame("Inventory Manager",100,100,400,600,this.productsList);
+            //System.out.println(this.productsList.get(0).id);
+             InventoryManagerFrame frame =new InventoryManagerFrame("Inventory Manager",100,100,800,800,this.productsList);
             frame.setVisible(true);
             //TODO Add functionalities related to the selected file
 
         } else if (e.getSource() == openPointOfSale) {
-            PointOfSaleFrame frame = new PointOfSaleFrame("Point Of Sale",100,100,400,600,this.productsList);
+            PointOfSaleFrame frame = new PointOfSaleFrame("Point Of Sale",100,100,800,800,this.productsList);
             frame.setVisible(true);
         }
     }

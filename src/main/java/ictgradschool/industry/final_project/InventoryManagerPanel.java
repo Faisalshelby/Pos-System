@@ -27,12 +27,14 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     JTextField productQuantityField;
 
     List<Products> productsList;
+    InventoryTableModelAdaptor model;
     public InventoryManagerPanel(List<Products> productsList){
         this.productsList = productsList;
 
+        model = new InventoryTableModelAdaptor(productsList);
         //table model
         JTable table = new JTable();
-        table.setModel(new InventoryTableModelAdaptor(productsList));
+        table.setModel(model);
         JScrollPane tablePane = new JScrollPane(table);
 
 
@@ -82,8 +84,8 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createProduct){
-          productsList.add(createProducts());
-          repaint();
+            model.addProduct(createProducts());
+
         } else if (e.getSource() == modifyProduct) {
             if (productIdField.getText()!=null){
                 viewProduct();
@@ -104,7 +106,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
             } else if (e.getSource() == removeProduct) {
             for (int i = 0; i < productsList.size(); i++) {
                 if (productsList.get(i).id.equals(productIdField.getText())){
-                    productsList.remove(productsList.get(i));
+                    model.removeProduct(productsList.get(i));
                     System.out.println("Product Removed");
                 }
                 else {

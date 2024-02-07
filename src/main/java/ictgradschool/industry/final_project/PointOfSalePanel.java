@@ -20,28 +20,36 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         public List<Products> checkoutList = new ArrayList<>();
         int clickCount;
         Map<Integer, Integer> rowClickCountMap = new HashMap<>();
-
+    int selectedRow;
+    PointOfSaleTableModelAdapter model;
     public PointOfSalePanel(List<Products> productsList){
         this.productsList = productsList;
         JTable table = new JTable();
-        table.setModel(new PointOfSaleTableModelAdapter(this.productsList));
+         model = new PointOfSaleTableModelAdapter(this.productsList);
+        table.setModel(model);
 
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int selectedRow = table.rowAtPoint(e.getPoint());
+                selectedRow = table.rowAtPoint(e.getPoint());
                 if (selectedRow != -1){
 
                     clickCount = rowClickCountMap.getOrDefault(selectedRow,0);
                     rowClickCountMap.put(selectedRow,clickCount+1);
                     clickCount = rowClickCountMap.get(selectedRow);
 
-                    productsList.get(selectedRow).quantity -=1;
+//                    productsList.get(selectedRow).quantity -=1;
+                    model.updateQuantityRemove(productsList.get(selectedRow));
+
+                    if (productsList.get(selectedRow).quantity == 0){
+                        productsList.remove(productsList.get(selectedRow));
+                    }
                     System.out.println(productsList.get(selectedRow).getQuantity());
                     checkoutList.add(getRowData(table,selectedRow));
 
                 }
             }
+
         });
 
             System.out.println(checkoutList);
@@ -68,12 +76,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
             win.dispose();
         } else if (e.getSource() == checkout) {
             //TODO Receipt
-//            FileReadWrite write = new FileReadWrite();
-//            write.fileWrite("checkout.csv",this.productsList);
-//            JComponent c = (JComponent) e.getSource();
-//            Window win = SwingUtilities.getWindowAncestor(c);
-//            win.dispose();
-            RecieptFrame frame = new RecieptFrame("Receipt",100,100,400,600,this.checkoutList);
+            RecieptFrame frame = new RecieptFrame("Receipt",100,100,800,800,this.checkoutList);
             frame.setVisible(true);
         }
 
@@ -90,7 +93,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
                 (String) productsString[1],
                 (String) productsString[2],
                 Double.parseDouble(String.valueOf(productsString[3])),
-                1
+                rowClickCountMap.get(selectedRow)
         );
         System.out.println(rowData.getId() +" "+ rowData.getName() +" "+ rowData.getDescription() +" "+ rowData.getPrice() +" "+ rowData.getQuantity());
    return rowData;
