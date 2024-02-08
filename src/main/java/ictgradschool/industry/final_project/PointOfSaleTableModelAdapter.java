@@ -48,6 +48,10 @@ public String getColumnName(int column){
         p.setQuantity(p.getQuantity() - 1);
         fireTableDataChanged();
     }
+    public void addProduct(Products products){
+        productsList.add(products);
+        fireTableDataChanged();
+    }
     @Override
     public void fireTableDataChanged() {
         super.fireTableDataChanged();

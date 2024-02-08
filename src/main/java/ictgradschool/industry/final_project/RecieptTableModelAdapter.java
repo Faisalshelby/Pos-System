@@ -47,8 +47,17 @@ public class RecieptTableModelAdapter extends AbstractTableModel {
     }
 
     public void removeProductFromCart(Products products){
-        checkoutList.remove(products);
-        fireTableDataChanged();
+        for (Products p : checkoutList){
+            if (p.id.equals(products.id)){
+                products.setQuantity(products.getQuantity()-1);
+                fireTableDataChanged();
+            }
+            if (products.quantity <= 0){
+                checkoutList.remove(products);
+                fireTableDataChanged();
+            }
+        }
+
     }
     public void emptyProductList(List<Products> products){
         checkoutList.removeAll(products);

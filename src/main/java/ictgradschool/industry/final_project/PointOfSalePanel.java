@@ -20,6 +20,8 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         public List<Products> checkoutList = new ArrayList<>();
         int clickCount;
         Map<Integer, Integer> rowClickCountMap = new HashMap<>();
+        //int cartItems = 0;
+        //JLabel cart;
     int selectedRow;
     PointOfSaleTableModelAdapter model;
     public PointOfSalePanel(List<Products> productsList){
@@ -38,7 +40,6 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
                     rowClickCountMap.put(selectedRow,clickCount+1);
                     clickCount = rowClickCountMap.get(selectedRow);
 
-//                    productsList.get(selectedRow).quantity -=1;
                     model.updateQuantityRemove(productsList.get(selectedRow));
 
                     if (productsList.get(selectedRow).quantity == 0){
@@ -46,6 +47,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
                     }
                     System.out.println(productsList.get(selectedRow).getQuantity());
                     checkoutList.add(getRowData(table,selectedRow));
+
 
                 }
             }
@@ -60,6 +62,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         //this.add(table);
         this.checkout = new JButton("CheckOut");
         this.exit= new JButton("Exit Point of Sale");
+        //this.add(new JLabel("cart" + cartItems));
         checkout.addActionListener(this);
         exit.addActionListener(this);
         this.add(tablePane);
@@ -93,7 +96,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
                 (String) productsString[1],
                 (String) productsString[2],
                 Double.parseDouble(String.valueOf(productsString[3])),
-                rowClickCountMap.get(selectedRow)
+                1
         );
         System.out.println(rowData.getId() +" "+ rowData.getName() +" "+ rowData.getDescription() +" "+ rowData.getPrice() +" "+ rowData.getQuantity());
    return rowData;

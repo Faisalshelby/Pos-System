@@ -53,19 +53,21 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
             //TODO for file not null make a separate panel or appropriate display with three buttons
 
             if (this.productsList != null) {
+                closeCurrentWindow(e);
                 FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList);
                  frame.setVisible(true);
             }
         } else if (e.getSource() == createFileStore) {
-
-            //TODO Add functionality
             try {
                 String filename = fileSelector();
                 File f = new File(filename);
                 if (f.exists()) {
                     throw new FileSystemException("File Already Exists");
                 }
+                FileReadWrite write = new FileReadWrite();
                 this.productsList = new ArrayList<>();
+                write.fileWrite(filename,this.productsList);
+                closeCurrentWindow(e);
                 FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList);
                 frame.setVisible(true);
             }catch (IOException exc){
@@ -85,8 +87,6 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
         String s = "";
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        //TODO select csv files, and make a default csv file for a products list
-        //Todo call the read file from file reader, and store the value in the inventory class
         fileChooser.setCurrentDirectory(new File("./src/main/resources"));
         FileNameExtensionFilter filter= new FileNameExtensionFilter("CSV Files","csv");
         fileChooser.setFileFilter(filter);
@@ -102,6 +102,9 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
 
     }
 
-
-
+    public void closeCurrentWindow(ActionEvent e){
+        JComponent c = (JComponent) e.getSource();
+        Window win = SwingUtilities.getWindowAncestor(c);
+        win.dispose();
+    }
 }
