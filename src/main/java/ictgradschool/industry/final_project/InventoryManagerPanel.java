@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryManagerPanel extends JPanel implements ActionListener{
-//TODO get the products from inventory, create a JTable and display the items, each item should be
+
     JButton createProduct;
     JButton modifyProduct;
     JButton viewProduct;
@@ -28,9 +28,10 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
 
     List<Products> productsList;
     InventoryTableModelAdaptor model;
-    public InventoryManagerPanel(List<Products> productsList){
+    public String filename;
+    public InventoryManagerPanel(List<Products> productsList,String filename){
         this.productsList = productsList;
-
+        this.filename = filename;
         model = new InventoryTableModelAdaptor(productsList);
         //table model
         JTable table = new JTable();
@@ -114,9 +115,9 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
                 }
             }
         } else if (e.getSource() == exitButton) {
-            JComponent c = (JComponent) e.getSource();
-            Window win = SwingUtilities.getWindowAncestor(c);
-            win.dispose();
+            closeCurrentWindow(e);
+            FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList,filename);
+            frame.setVisible(true);
         }
 
     }
@@ -148,7 +149,9 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         }
     }
 
-
-
-
+    public void closeCurrentWindow(ActionEvent e){
+        JComponent c = (JComponent) e.getSource();
+        Window win = SwingUtilities.getWindowAncestor(c);
+        win.dispose();
     }
+}

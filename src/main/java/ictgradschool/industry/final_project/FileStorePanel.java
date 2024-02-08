@@ -8,13 +8,16 @@ import java.util.List;
 
 public class FileStorePanel extends JPanel implements ActionListener {
 
+    String filename;
     JButton closeFileStore;
 
     JButton openInventory;
 
     JButton openPointOfSale;
     List<Products> productsList;
-    public FileStorePanel(List<Products> productsList){
+
+    public FileStorePanel(List<Products> productsList,String filename){
+        this.filename = filename;
         this.productsList = productsList;
         setBackground(Color.WHITE);
         this.closeFileStore = new JButton("Exit");
@@ -36,13 +39,16 @@ public class FileStorePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == closeFileStore){
             closeCurrentWindow(e);
+            WelcomeScreenFrame frame = new WelcomeScreenFrame("Welcome to Point of Sales",100,100,800,800);
+            frame.setVisible(true);
         } else if (e.getSource() == openInventory) {
             closeCurrentWindow(e);
-             InventoryManagerFrame frame =new InventoryManagerFrame("Inventory Manager",100,100,800,800,this.productsList);
+             InventoryManagerFrame frame =new InventoryManagerFrame("Inventory Manager",100,100,800,800,this.productsList,filename);
             frame.setVisible(true);
 
         } else if (e.getSource() == openPointOfSale) {
-            PointOfSaleFrame frame = new PointOfSaleFrame("Point Of Sale",100,100,800,800,this.productsList);
+            closeCurrentWindow(e);
+            PointOfSaleFrame frame = new PointOfSaleFrame("Point Of Sale",100,100,800,800,this.productsList,filename);
             frame.setVisible(true);
         }
     }

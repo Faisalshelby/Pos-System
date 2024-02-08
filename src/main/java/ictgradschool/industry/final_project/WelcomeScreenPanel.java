@@ -41,43 +41,40 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
 // Action Event For FileStore Buttons
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == openFileStore){
-    try {
-        String filename = fileSelector();
         FileReadWrite readWrite = new FileReadWrite();
-        this.productsList = readWrite.fileRead(filename);
-
-         }catch (IOException ioe){
-        System.out.println("Incorrect File");
-        }
-            //TODO for file not null make a separate panel or appropriate display with three buttons
+        String filename="";
+        if (e.getSource() == openFileStore){
+        try {
+             filename= fileSelector();
+            this.productsList = readWrite.fileRead(filename);
+         }  catch (IOException ioe){
+                System.out.println("Incorrect File");
+            }
 
             if (this.productsList != null) {
                 closeCurrentWindow(e);
-                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList);
+                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList,filename);
                  frame.setVisible(true);
             }
         } else if (e.getSource() == createFileStore) {
             try {
-                String filename = fileSelector();
+
+                 filename = fileSelector();
                 File f = new File(filename);
                 if (f.exists()) {
-                    throw new FileSystemException("File Already Exists");
+                    throw new Exception("File Already Exists");
                 }
-                FileReadWrite write = new FileReadWrite();
                 this.productsList = new ArrayList<>();
-                write.fileWrite(filename,this.productsList);
+                readWrite.fileWrite(filename,this.productsList);
                 closeCurrentWindow(e);
-                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList);
+                FileStoreFrame frame = new FileStoreFrame("File Store",100,100,800,800,this.productsList,filename);
                 frame.setVisible(true);
-            }catch (IOException exc){
-                System.out.println("Incorrect File");
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
 
         } else if (e.getSource() == exit) {
-            JComponent c = (JComponent) e.getSource();
-            Window win = SwingUtilities.getWindowAncestor(c);
-            win.dispose();
+            closeCurrentWindow(e);
         }
     }
 
@@ -96,10 +93,8 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
             return s;
         }
         else {
-            System.out.println("NO FILE SELECTED");
             return "default.csv";
         }
-
     }
 
     public void closeCurrentWindow(ActionEvent e){

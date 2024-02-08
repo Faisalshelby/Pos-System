@@ -16,6 +16,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
 
     JButton checkout;
     JButton exit;
+    public String filename;
         public List<Products> productsList;
         public List<Products> checkoutList = new ArrayList<>();
         int clickCount;
@@ -24,8 +25,9 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         //JLabel cart;
     int selectedRow;
     PointOfSaleTableModelAdapter model;
-    public PointOfSalePanel(List<Products> productsList){
+    public PointOfSalePanel(List<Products> productsList,String filename){
         this.productsList = productsList;
+        this.filename = filename;
         JTable table = new JTable();
          model = new PointOfSaleTableModelAdapter(this.productsList);
         table.setModel(model);
@@ -74,12 +76,10 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exit){
-            JComponent c = (JComponent) e.getSource();
-            Window win = SwingUtilities.getWindowAncestor(c);
-            win.dispose();
+            closeCurrentWindow(e);
         } else if (e.getSource() == checkout) {
-            //TODO Receipt
-            RecieptFrame frame = new RecieptFrame("Receipt",100,100,800,800,this.checkoutList);
+
+            RecieptFrame frame = new RecieptFrame("Receipt",100,100,800,800,this.checkoutList,filename);
             frame.setVisible(true);
         }
 
@@ -100,6 +100,12 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         );
         System.out.println(rowData.getId() +" "+ rowData.getName() +" "+ rowData.getDescription() +" "+ rowData.getPrice() +" "+ rowData.getQuantity());
    return rowData;
+    }
+
+    public void closeCurrentWindow(ActionEvent e){
+        JComponent c = (JComponent) e.getSource();
+        Window win = SwingUtilities.getWindowAncestor(c);
+        win.dispose();
     }
 }
 

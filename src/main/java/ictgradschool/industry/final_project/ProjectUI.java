@@ -1,10 +1,8 @@
 package ictgradschool.industry.final_project;
 
 import javax.swing.*;
-//TODO remove product from inventory simultaneously
-//TODO Reciept
-//TODO Reciept model adapter
-//todo save file from reciept
+//TODO Save File whenever changes are made
+//TODO create Filestore should create a new file if the file does not exist
 public class ProjectUI {
     public static void main(String[] args) {
         // TODO: Your code here

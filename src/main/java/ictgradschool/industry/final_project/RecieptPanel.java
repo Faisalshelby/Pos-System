@@ -11,23 +11,22 @@ import java.util.List;
 
 public class RecieptPanel extends JPanel implements ActionListener {
 
+    public String filename;
     public List<Products> checkoutList;
     RecieptTableModelAdapter model;
 
     JButton proceed;
 
     JButton Exit;
-
-    JButton removeProduct;
-
     JButton empty;
     int selectedRow;
+    JLabel remove;
 
 
-    public RecieptPanel(List<Products> checkoutList){
+    public RecieptPanel(List<Products> checkoutList,String filename){
 
         this.checkoutList = filter(checkoutList);
-
+        this.filename = filename;
         model = new RecieptTableModelAdapter(this.checkoutList);
         JTable table = new JTable();
         table.setModel(model);
@@ -44,18 +43,16 @@ public class RecieptPanel extends JPanel implements ActionListener {
 
         JScrollPane tablePane = new JScrollPane(table);
         proceed = new JButton("Proceed");
-        removeProduct = new JButton("Remove Product");
+        remove = new JLabel("Click on the product to remove");
         empty = new JButton("Empty Cart");
         Exit = new JButton("Exit");
-
+        this.add(remove);
         this.add(tablePane);
         this.add(proceed);
-        this.add(removeProduct);
         this.add(empty);
         this.add(Exit);
 
         proceed.addActionListener(this);
-        removeProduct.addActionListener(this);
         empty.addActionListener(this);
         Exit.addActionListener(this);
 
@@ -63,19 +60,21 @@ public class RecieptPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        FileReadWrite write = new FileReadWrite();
         if (e.getSource() == proceed){
-            FileReadWrite write = new FileReadWrite();
-            write.fileWrite("foo.csv",checkoutList);
+            write.fileWrite(filename,checkoutList);
             JComponent c = (JComponent) e.getSource();
             Window win = SwingUtilities.getWindowAncestor(c);
             win.dispose();
             }
         else if (e.getSource() == Exit) {
+            write.fileWrite(filename,checkoutList);
             JComponent c = (JComponent) e.getSource();
             Window win = SwingUtilities.getWindowAncestor(c);
             win.dispose();
         } else if (e.getSource() == empty) {
             model.emptyProductList(checkoutList);
+            write.fileWrite(filename,checkoutList);
         }
 
     }
