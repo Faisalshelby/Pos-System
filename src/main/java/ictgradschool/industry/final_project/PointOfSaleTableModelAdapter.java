@@ -7,8 +7,10 @@ import java.util.List;
 public class PointOfSaleTableModelAdapter extends AbstractTableModel {
 
     List<Products> productsList;
+    String filename;
     public PointOfSaleTableModelAdapter(List<Products> productsList){
         this.productsList = productsList;
+    this.filename = filename;
     }
 
     @Override

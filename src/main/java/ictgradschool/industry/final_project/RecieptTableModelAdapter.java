@@ -6,6 +6,7 @@ import java.util.List;
 public class RecieptTableModelAdapter extends AbstractTableModel {
 
     public List<Products> checkoutList;
+
     public RecieptTableModelAdapter(List<Products> checkoutList){
 
         this.checkoutList  = checkoutList;

@@ -33,7 +33,7 @@ public void fileWrite(String filename,List<Products> productsList){
     List<Products> products = productsList;
     char delimeter = ',';
     String dir = "./src/main/resources/";
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(dir+filename))){
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
         writer.write("PRODUCT ID" +delimeter+ "PRODUCT NAME"+delimeter+"PRODUCT DESCRIPTION"+delimeter+"PRODUCT PRICE"+delimeter+"PRODUCT QUANTITY");
         writer.newLine();
         if (products!=null){
@@ -46,8 +46,10 @@ public void fileWrite(String filename,List<Products> productsList){
             writer.newLine();
         }
         }
+
     }catch (IOException e){
-        System.out.println("INCORRECT FILE");
+
+        System.out.println(e.getMessage());
     }
 }
 

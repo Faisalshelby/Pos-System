@@ -47,7 +47,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
         try {
              filename= fileSelector();
             this.productsList = readWrite.fileRead(filename);
-         }  catch (IOException ioe){
+                }  catch (IOException ioe){
                 System.out.println("Incorrect File");
             }
 
@@ -90,6 +90,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
         int result = fileChooser.showDialog(WelcomeScreenPanel.this,"select");
         if (result == JFileChooser.APPROVE_OPTION){
              s = String.valueOf(fileChooser.getSelectedFile());
+             System.out.println(s);
             return s;
         }
         else {

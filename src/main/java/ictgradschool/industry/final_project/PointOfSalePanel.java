@@ -16,15 +16,16 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
 
     JButton checkout;
     JButton exit;
-    public String filename;
+
+        public String filename;
         public List<Products> productsList;
         public List<Products> checkoutList = new ArrayList<>();
         int clickCount;
         Map<Integer, Integer> rowClickCountMap = new HashMap<>();
-        //int cartItems = 0;
-        //JLabel cart;
+
     int selectedRow;
     PointOfSaleTableModelAdapter model;
+    FileReadWrite write = new FileReadWrite();
     public PointOfSalePanel(List<Products> productsList,String filename){
         this.productsList = productsList;
         this.filename = filename;
@@ -49,7 +50,7 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
                     }
                     System.out.println(productsList.get(selectedRow).getQuantity());
                     checkoutList.add(getRowData(table,selectedRow));
-
+                    write.fileWrite(filename,checkoutList);
 
                 }
             }
@@ -64,7 +65,6 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         //this.add(table);
         this.checkout = new JButton("CheckOut");
         this.exit= new JButton("Exit Point of Sale");
-        //this.add(new JLabel("cart" + cartItems));
         checkout.addActionListener(this);
         exit.addActionListener(this);
         this.add(tablePane);
@@ -76,9 +76,10 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exit){
+            write.fileWrite(filename,checkoutList);
             closeCurrentWindow(e);
         } else if (e.getSource() == checkout) {
-
+            write.fileWrite(filename,checkoutList);
             RecieptFrame frame = new RecieptFrame("Receipt",100,100,800,800,this.checkoutList,filename);
             frame.setVisible(true);
         }
