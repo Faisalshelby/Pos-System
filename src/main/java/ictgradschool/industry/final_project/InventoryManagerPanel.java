@@ -10,7 +10,6 @@ import java.util.List;
 public class InventoryManagerPanel extends JPanel implements ActionListener{
 
     JButton createProduct;
-    JButton modifyProduct;
     JButton viewProduct;
     JButton removeProduct;
 
@@ -55,7 +54,6 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
 
         //buttons
         createProduct = new JButton("Create Product");
-        modifyProduct = new JButton("Modify Product");
         viewProduct = new JButton("View Product");
         removeProduct = new JButton("Remove Product");
         exitButton = new JButton("Exit Inventory");
@@ -71,13 +69,11 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
 
         //adding buttons
         this.add(createProduct);
-        this.add(modifyProduct);
         this.add(viewProduct);
         this.add(removeProduct);
         this.add(exitButton);
 
         createProduct.addActionListener(this);
-        modifyProduct.addActionListener(this);
         viewProduct.addActionListener(this);
         removeProduct.addActionListener(this);
         exitButton.addActionListener(this);
@@ -87,10 +83,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
         if(e.getSource() == createProduct){
             model.addProduct(createProducts());
 
-        } else if (e.getSource() == modifyProduct) {
-            //TODO user adapter to modify product, can also use observer to see change
-
-            } else if (e.getSource() == viewProduct) {
+        } else if (e.getSource() == viewProduct) {
                     viewProduct();
 
             } else if (e.getSource() == removeProduct) {
@@ -114,15 +107,31 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
 
         public Products createProducts(){
                 if (productIdField.getText().length() !=10){
-                    System.out.println("INVALID ID");
+                    JOptionPane.showMessageDialog(this, "Product Id Length must be 10 characters",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return null;
                 }
+                for (Products p : this.productsList){
+                    if (p.getId().equals(productIdField.getText())){
+                        JOptionPane.showMessageDialog(this, "Product Id's Cannot be same",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    return null;
+                    }
+                }try {
+                    Integer.parseInt(productQuantityField.getText());
+                    Double.parseDouble(productPriceField.getText());
+                    }catch (NumberFormatException nfe){
+                JOptionPane.showMessageDialog(this, "Cannot Take Characters in Integer Values",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+
                 Products product = new Products(
                 productIdField.getText()
                 ,productNameField.getText(),
                 productDescriptionField.getText(),
                 Double.parseDouble(productPriceField.getText()),
                 Integer.parseInt(productQuantityField.getText()));
-               //this.productsList.add(product);
 
               return product;
     }

@@ -11,7 +11,6 @@ public class InventoryTableModelAdaptor extends AbstractTableModel implements Pr
         for (Products products : productsList) {
             products.addListener(this);
         }
-
     }
 
     @Override
@@ -46,6 +45,9 @@ public class InventoryTableModelAdaptor extends AbstractTableModel implements Pr
     }
 
     public void addProduct(Products p) {
+        if (p == null){
+            return;
+        }
         productsList.add(p);
         p.addListener(this);
         fireTableDataChanged();
@@ -71,7 +73,6 @@ public class InventoryTableModelAdaptor extends AbstractTableModel implements Pr
             case 2 -> p.setQuantity((int) aValue);
             case 3 -> p.setPrice((double) aValue);
         };
-//        super.setValueAt(aValue, rowIndex, columnIndex);
     }
 
     @Override
