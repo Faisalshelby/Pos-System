@@ -3,11 +3,14 @@ package ictgradschool.industry.final_project;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
-public class InventoryTableModelAdaptor extends AbstractTableModel {
+public class InventoryTableModelAdaptor extends AbstractTableModel implements ProductObserver {
 
     List<Products> productsList;
     public InventoryTableModelAdaptor(List<Products> productsList){
         this.productsList = productsList;
+        for (Products products : productsList) {
+            products.addListener(this);
+        }
 
     }
 
@@ -44,26 +47,40 @@ public class InventoryTableModelAdaptor extends AbstractTableModel {
 
     public void addProduct(Products p) {
         productsList.add(p);
+        p.addListener(this);
         fireTableDataChanged();
     }
     public void removeProduct(Products p){
         productsList.remove(p);
+        p.removeListener(this);
         fireTableDataChanged();
     }
 
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return super.isCellEditable(rowIndex, columnIndex);
+        return true;
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        super.setValueAt(aValue, rowIndex, columnIndex);
+        Products p = this.productsList.get(rowIndex);
+        switch (columnIndex){
+            case 0 -> p.setId((String)aValue);
+            case 1 -> p.setName((String) aValue);
+            case 2 -> p.setQuantity((int) aValue);
+            case 3 -> p.setPrice((double) aValue);
+        };
+//        super.setValueAt(aValue, rowIndex, columnIndex);
     }
 
     @Override
     public void fireTableDataChanged() {
         super.fireTableDataChanged();
+    }
+
+    @Override
+    public void productChanged(Products p) {
+        fireTableDataChanged();
     }
 }

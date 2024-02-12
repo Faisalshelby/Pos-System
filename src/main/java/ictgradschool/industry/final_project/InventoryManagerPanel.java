@@ -88,18 +88,7 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
             model.addProduct(createProducts());
 
         } else if (e.getSource() == modifyProduct) {
-            if (productIdField.getText()!=null){
-                viewProduct();
-            }
-            Products p = createProducts();
-            for (Products products: this.productsList){
-                if (products.equals(p)){
-                    System.out.println("No changes Made");
-                }
-                else {
-                    products =p;
-                }
-            }
+            //TODO user adapter to modify product, can also use observer to see change
 
             } else if (e.getSource() == viewProduct) {
                     viewProduct();

@@ -12,6 +12,24 @@ public class Products {
     public double price;
     public int quantity;
 
+    private List<ProductObserver> obs = new ArrayList<>();
+
+    public void addListener(ProductObserver p) {
+        if (!obs.contains(p)) {
+            obs.add(p);
+        }
+    }
+
+    public void removeListener(ProductObserver p) {
+        obs.remove(p);
+    }
+
+    private void notifyObservers() {
+        for (ProductObserver ob : obs) {
+            ob.productChanged(this);
+        }
+    }
+
     public Products(String id,String name,String description,double price,int quantity){
 
         this.id = id;
@@ -44,10 +62,12 @@ public class Products {
 
     public void setId(String id) {
         this.id = id;
+        notifyObservers();
     }
 
     public void setName(String name) {
         this.name = name;
+        notifyObservers();
     }
 
     public void setDescription(String description) {

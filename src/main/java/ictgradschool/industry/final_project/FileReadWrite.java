@@ -11,14 +11,14 @@ List<Products> productsList = new ArrayList<>();
     String line = "";
     String[] product;
     try(BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-
+        reader.readLine(); // Eats the file header
         while (((line = reader.readLine())!=null)){
-            line = reader.readLine();
+
             product = line.split(",");
             productsList.add(new Products(product[0], product[1],
                     product[2],Double.parseDouble(product[3]),
                     Integer.parseInt(product[4])));
-            System.out.println(product[0] + ", Name=" + product[1] + ", Description=" + product[2] + ", Price = " + product[3] + ", Quantity " + product[4]);
+            //System.out.println(product[0] + ", Name=" + product[1] + ", Description=" + product[2] + ", Price = " + product[3] + ", Quantity " + product[4]);
         }
 
     } catch (FileNotFoundException fne) {
