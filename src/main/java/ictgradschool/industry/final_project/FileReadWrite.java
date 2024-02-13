@@ -4,6 +4,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+* The FileReadWrite class is a file read and write class, It has two functions, fileRead and fileWrite
+* The fileRead function takes in a filename as an argument and returns a list of products
+* The fileWrite function takes in a list of products and a filename,
+*  and writes the file with the list of Products as the file content
+* **/
+
 public class FileReadWrite {
 
 public List<Products> fileRead(String filename){
@@ -18,7 +25,6 @@ List<Products> productsList = new ArrayList<>();
             productsList.add(new Products(product[0], product[1],
                     product[2],Double.parseDouble(product[3]),
                     Integer.parseInt(product[4])));
-            //System.out.println(product[0] + ", Name=" + product[1] + ", Description=" + product[2] + ", Price = " + product[3] + ", Quantity " + product[4]);
         }
 
     } catch (FileNotFoundException fne) {
@@ -51,6 +57,30 @@ public void fileWrite(String filename,List<Products> productsList){
 
         System.out.println(e.getMessage());
     }
+}
+
+public void writeReceipt(List<Products>checkoutList,String filename){
+    double totalPrice = 0;
+    try(PrintWriter printWriter = new PrintWriter(new FileWriter(new File(filename)))) {
+        printWriter.println("=================================");
+        printWriter.print("Product Name");
+        printWriter.print("          ");
+        printWriter.println("Price");
+        for (Products p : checkoutList){
+            printWriter.print(p.getName());
+            printWriter.print("          ");
+            printWriter.println(p.getPrice());
+        totalPrice += p.getPrice();
+        }
+        printWriter.println("=================================");
+        printWriter.print("Total");
+        printWriter.print("          ");
+        printWriter.println(totalPrice);
+        printWriter.println("=================================");
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+
 }
 
 }

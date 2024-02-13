@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/** POINT OF SALE
+* The point of sale frame calls the POS panel which is the selling window of the app
+* **/
 
 public class PointOfSaleFrame extends JFrame{
 public List<Products> productsList;

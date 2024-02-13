@@ -2,7 +2,8 @@ package ictgradschool.industry.final_project;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
-
+/**The reciept table model adapter class takes in the chekoutlist or the itmes in the cart and populates the
+ * receipt panel, Jtable **/
 public class RecieptTableModelAdapter extends AbstractTableModel {
 
     public List<Products> checkoutList;
@@ -26,7 +27,7 @@ public class RecieptTableModelAdapter extends AbstractTableModel {
         return switch (column){
             case 0 -> "Product Name";
             case 1 -> "Quantity";
-            case 2 -> "Price";
+            case 2 -> "Total Price";
             default -> "NOTHING";
         };
     }

@@ -5,6 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+/**
+* The FileStorePanel contains, a button to Open Inventory, Open Point of Sale
+* and close the FileStore for the user to choose from
+* **/
+
+
 
 public class FileStorePanel extends JPanel implements ActionListener {
 

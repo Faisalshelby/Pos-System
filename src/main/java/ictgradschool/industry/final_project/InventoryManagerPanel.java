@@ -7,6 +7,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+* The inventory Manager Panel, takes in a product List as an input,
+*  the product list is the inventory's main data source
+* the inventory panel generates a Jtable of products
+* the inventory panel also contains a create product button, a view product button,
+* and a remove product button.
+* and an exit button to close the inventory
+* **/
+
+
 public class InventoryManagerPanel extends JPanel implements ActionListener{
 
     JButton createProduct;
@@ -24,14 +34,13 @@ public class InventoryManagerPanel extends JPanel implements ActionListener{
     JTextField productDescriptionField;
     JTextField productPriceField;
     JTextField productQuantityField;
-
     List<Products> productsList;
     InventoryTableModelAdaptor model;
     public String filename;
     public InventoryManagerPanel(List<Products> productsList,String filename){
         this.productsList = productsList;
         this.filename = filename;
-        model = new InventoryTableModelAdaptor(productsList);
+        model = new InventoryTableModelAdaptor(this.productsList,this.filename);
         //table model
         JTable table = new JTable();
         table.setModel(model);

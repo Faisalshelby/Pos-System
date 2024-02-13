@@ -4,13 +4,16 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
+/**The POS table model adapter class
+* sets the values for the Jtable to be displayed in the
+* POS panel **/
+
 public class PointOfSaleTableModelAdapter extends AbstractTableModel {
 
     List<Products> productsList;
     String filename;
     public PointOfSaleTableModelAdapter(List<Products> productsList){
         this.productsList = productsList;
-    this.filename = filename;
     }
 
     @Override

@@ -10,7 +10,13 @@ import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
-
+/**The welcome Screen Panel, is the first window of the App,
+ *  it offers the user to select from an existing filestore
+ * which is a csv file of to create a new filestore, where user can create new file,
+ * by typing the name in the dialogue box, or exit the app
+ * --Selection of an exitsting store is followed by reading the while, where the user is directed to the FileStorepanel
+ * --Creation of a new Filestore creates a new empty inventory, where products can be added
+ * **/
 public class WelcomeScreenPanel extends JPanel implements ActionListener{
 
     JButton openFileStore;
@@ -74,7 +80,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
             }
 
         } else if (e.getSource() == exit) {
-            closeCurrentWindow(e);
+            System.exit(0);
         }
     }
 
@@ -94,7 +100,7 @@ public class WelcomeScreenPanel extends JPanel implements ActionListener{
             return s;
         }
         else {
-            return "default.csv";
+            return "./src/main/resources/default.csv";
         }
     }
 

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**The class Products is the main class of this project, each product in the Inventory is an instance of this class,
+Each Product has its own unique ID, a name, A description, Price and the quantity, which can be set in the inventory
+ **/
+
 public class Products {
 
     public String id;
@@ -81,19 +85,6 @@ public class Products {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    public String generateAlphaNumeric() {
-        char[] alphanumeric = "0123456789QWERTYUIOPASDFGHJKLMNBVCXZ".toCharArray();
-
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < 10; i++) {
-            int index = (int) (Math.random() * alphanumeric.length);
-            builder.append(alphanumeric[index]);
-
-        }
-        return builder.toString();
-    }
-
 
 
     @Override

@@ -3,11 +3,20 @@ package ictgradschool.industry.final_project;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
+/**
+* The inventory Table model adapter takes in the product list from the file read as an argument,
+* sets the values for the Jtable to be displayed in the Inventory
+* **/
+
+
 public class InventoryTableModelAdaptor extends AbstractTableModel implements ProductObserver {
 
     List<Products> productsList;
-    public InventoryTableModelAdaptor(List<Products> productsList){
+    FileReadWrite write = new FileReadWrite();
+    String filename;
+    public InventoryTableModelAdaptor(List<Products> productsList,String filename){
         this.productsList = productsList;
+        this.filename = filename;
         for (Products products : productsList) {
             products.addListener(this);
         }
@@ -51,11 +60,13 @@ public class InventoryTableModelAdaptor extends AbstractTableModel implements Pr
         productsList.add(p);
         p.addListener(this);
         fireTableDataChanged();
+        write.fileWrite(this.filename,this.productsList);
     }
     public void removeProduct(Products p){
         productsList.remove(p);
         p.removeListener(this);
         fireTableDataChanged();
+        write.fileWrite(this.filename,this.productsList);
     }
 
 
@@ -82,6 +93,7 @@ public class InventoryTableModelAdaptor extends AbstractTableModel implements Pr
 
     @Override
     public void productChanged(Products p) {
+
         fireTableDataChanged();
     }
 }

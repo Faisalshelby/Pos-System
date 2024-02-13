@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+* The inventory manager frame calls the inventory manager panel which allows
+* the user to manipulate the inventory
+* **/
 
 public class InventoryManagerFrame extends JFrame{
     public List<Products> productsList;

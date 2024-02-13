@@ -11,6 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+* POS panel is the selling window of the project, it allows the user to add a product to the cart
+* by clicking on the product, it takes the inventory product list as an argument and creates a Jtable,
+* each time the product is added to the cart , it is removed from the inventory,
+*  the Point of sale Panel has a checkout button and an exit button, the exit button saves the current cart and closes the window
+* the checkout button takes the user to the receipt window
+* **/
 
 public class PointOfSalePanel extends JPanel implements ActionListener{
 
@@ -48,16 +55,13 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
                     if (productsList.get(selectedRow).quantity == 0){
                         productsList.remove(productsList.get(selectedRow));
                     }
-                    System.out.println(productsList.get(selectedRow).getQuantity());
                     checkoutList.add(getRowData(table,selectedRow));
-                    write.fileWrite(filename,checkoutList);
+                    write.fileWrite("./src/main/resources/receipt/receipt.txt",checkoutList);
 
                 }
             }
 
         });
-
-            System.out.println(checkoutList);
 
 
         JScrollPane tablePane = new JScrollPane(table);
@@ -76,10 +80,12 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exit){
-            write.fileWrite(filename,checkoutList);
+            write.writeReceipt(checkoutList,"./src/main/resources/receipt/receipt.txt");
             closeCurrentWindow(e);
+            WelcomeScreenFrame frame = new WelcomeScreenFrame("Point Of Sale",100,100,800,800);
+            frame.setVisible(true);
         } else if (e.getSource() == checkout) {
-            write.fileWrite(filename,checkoutList);
+            write.writeReceipt(checkoutList,"./src/main/resources/receipt/receipt.txt");
             RecieptFrame frame = new RecieptFrame("Receipt",100,100,800,800,this.checkoutList,filename);
             frame.setVisible(true);
         }
@@ -90,7 +96,6 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
         Object[] productsString = new Object[columns];
         for (int i = 0; i < columns; i++) {
             productsString[i]= table.getValueAt(row,i);
-            //System.out.println(productsString[i]);
         }
         Products rowData= new Products(
                 (String) productsString[0],
@@ -99,7 +104,6 @@ public class PointOfSalePanel extends JPanel implements ActionListener{
                 Double.parseDouble(String.valueOf(productsString[3])),
                 1
         );
-        System.out.println(rowData.getId() +" "+ rowData.getName() +" "+ rowData.getDescription() +" "+ rowData.getPrice() +" "+ rowData.getQuantity());
    return rowData;
     }
 

@@ -8,7 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
+/**The reciept panel is the final window of the application, it consists of all the items in the cart,
+ * it also has a proceed butoon which save the reciept.txt file and closes the application
+ * in order to remove the product individually user has to click on the product whereas if the user wants to
+ * empty the cart, there is an empty cart button which will empty the cart
+ * **/
 public class RecieptPanel extends JPanel implements ActionListener {
 
     public String filename;
@@ -62,19 +66,15 @@ public class RecieptPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         FileReadWrite write = new FileReadWrite();
         if (e.getSource() == proceed){
-            write.fileWrite(filename,checkoutList);
-            JComponent c = (JComponent) e.getSource();
-            Window win = SwingUtilities.getWindowAncestor(c);
-            win.dispose();
+            write.writeReceipt(checkoutList,"./src/main/resources/receipt/receipt.txt");
+            System.exit(0);
             }
         else if (e.getSource() == Exit) {
-            write.fileWrite(filename,checkoutList);
             JComponent c = (JComponent) e.getSource();
             Window win = SwingUtilities.getWindowAncestor(c);
             win.dispose();
         } else if (e.getSource() == empty) {
             model.emptyProductList(checkoutList);
-            write.fileWrite(filename,checkoutList);
         }
 
     }
@@ -98,7 +98,12 @@ public class RecieptPanel extends JPanel implements ActionListener {
             lastSeen = p;
             count = 1;
         }
+
         checkout.add(lastSeen);
+        for (Products products: checkout){
+            products.setPrice(products.getQuantity()*products.getPrice());
+        }
+
     return checkout;}
 
 }

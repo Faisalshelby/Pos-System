@@ -3,6 +3,8 @@ package ictgradschool.industry.final_project;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+/**The RecieptFrame class calls the reciept Panel which is the final window of the application**/
+
 
 public class RecieptFrame extends JFrame {
 
