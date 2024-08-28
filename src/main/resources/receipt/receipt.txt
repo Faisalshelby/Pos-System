@@ -1,0 +1,16 @@
+=================================
+Product Name          Price
+PRODUCT0          3.98
+PRODUCT1          5.98
+PRODUCT2          7.98
+PRODUCT3          9.98
+PRODUCT4          11.98
+PRODUCT5          11.98
+PRODUCT6          13.98
+PRODUCT7          15.98
+PRODUCT8          17.98
+PRODUCT9          21.98
+PRODUCT10          23.98
+=================================
+Total          145.78000000000003
+=================================
