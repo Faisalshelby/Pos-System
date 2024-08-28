@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Final Project - Industry
 
 Begin by forking this repository into your lab exercises namespace by clicking the ```fork``` button.
@@ -167,3 +168,7 @@ The point of sale window should allow a user to browse through a list of product
 Your git repository will serve as the submission for your project source code. Ensure that your repository master branch is up-to-date on or before the due date given at the top of this document. Any commits after this deadline will be ignored by the markers.
 
 If any special setup instructions are required, please document these in the provided [`SETUP.md`](./SETUP.md) file.
+=======
+# Pos-System
+This project was part of COMPX568
+>>>>>>> 3c6bc077124ac1aba316e91423905a8db1066289
